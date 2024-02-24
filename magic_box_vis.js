@@ -13,7 +13,8 @@ let grid = new Grid({
 //ADD VALUES
 for (r = 0; r < grid_height; r++) {
     for (c = 0; c < grid_width; c++) {
-        grid.add({x: c, y: r}, new TextBox({text: `${Box.places[r][c].toString().substring(0,1)}`, fontSize: 16, color: "black"}))
+        let value = Box.places[r][c].toString().substring(0,1)
+        grid.add({x: c, y: r}, new TextBox({text: `${value}`, fontSize: 16, color: "black"}))
     }
 }
 
