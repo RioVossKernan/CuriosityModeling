@@ -111,20 +111,19 @@ pred chunkRule{
     }
 }
 pred fullSudoku{
+    wellformed
     SudokuRules
     FullBoard
 }
 
-test suite for SudokuRules {
+test suite for fullSudoku {
     assert rowRule is necessary for fullSudoku for 5 Int
     assert colRule is necessary for fullSudoku for 5 Int
     assert chunkRule is necessary for fullSudoku for 5 Int
 
     test expect {
         wellformedFullSolvedBoardIsPossible: {
-            wellformed
-            FullBoard
-            SudokuRules
+            fullSudoku
         } for 5 Int
         is sat
     }
