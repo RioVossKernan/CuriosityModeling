@@ -6,6 +6,10 @@ one sig Board {
     values: pfunc Int -> Int -> Int // (row, col) -> value
 }
 
+fun zeroToEight: Set {
+    0 + 1 + 2 + 3 + 3 + 4 + 5 + 6 + 7 + 8
+}
+
 pred wellformed {
     // For all positions with values...
     all row, col : Int | some Board.values[row][col] implies { 
@@ -16,8 +20,8 @@ pred wellformed {
 
 // There is some value at all in-bounds positions
 pred FullBoard {
-    all row, col : Int | {
-        (row >= 0 and row <= 8 and col >= 0 and col <= 8) implies some Board.values[row][col] 
+    all row, col : zeroToEight | {
+        some Board.values[row][col] 
     }
 }
 
@@ -41,10 +45,10 @@ pred ValidMove[b: Board, row, col, move: Int] {
 
 // assesses the validity of the overall game board
 pred SudokuRules{
-    all row, col : Int | some Board.values[row][col] implies { 
-        no col2 : Int | (Board.values[row][col] = Board.values[row][col2]) and (col2 != col) // Row Rule
-        no row2 : Int | (Board.values[row][col] = Board.values[row2][col]) and (row2 != row) // Col Rule
-        no row2, col2 : Int | { //Chunk Rule
+    all row, col : zeroToEight | some Board.values[row][col] implies { 
+        no col2 : zeroToEight | (Board.values[row][col] = Board.values[row][col2]) and (col2 != col) // Row Rule
+        no row2 : zeroToEight | (Board.values[row][col] = Board.values[row2][col]) and (row2 != row) // Col Rule
+        no row2, col2 : zeroToEight | { //Chunk Rule
             Board.values[row][col] = Board.values[row2][col2] //same number
             (col2 != col) and (row2 != row) //its a different pos
             (divide[row2,3] = divide[row,3]) and (divide[col2,3] = divide[col,3]) //same chunk

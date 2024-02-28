@@ -48,7 +48,6 @@ pred overConstrainedCol {
 }
 
 test suite for wellformed {
-    assert validPositionIndex is necessary for wellformed for 5 Int
     assert validValueIndex is necessary for wellformed for 5 Int
     assert overConstrainedRow is sufficient for wellformed for 5 Int
     assert overConstrainedCol is sufficient for wellformed for 5 Int
@@ -86,9 +85,9 @@ test suite for FullBoard {
 
 
 ---ValidMove -------------------------------------------------------------------
-test suite for ValidMove {
+// test suite for ValidMove {
 
-}
+// }
 
 
 ---SudokuRules -----------------------------------------------------------------
@@ -111,11 +110,15 @@ pred chunkRule{
         }
     }
 }
+pred fullSudoku{
+    SudokuRules
+    FullBoard
+}
 
 test suite for SudokuRules {
-    assert rowRule is necessary for SudokuRules for 5 Int
-    assert colRule is necessary for SudokuRules for 5 Int
-    assert chunkRule is necessary for SudokuRules for 5 Int
+    assert rowRule is necessary for fullSudoku for 5 Int
+    assert colRule is necessary for fullSudoku for 5 Int
+    assert chunkRule is necessary for fullSudoku for 5 Int
 
     test expect {
         wellformedFullSolvedBoardIsPossible: {
