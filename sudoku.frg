@@ -25,23 +25,6 @@ pred FullBoard {
     }
 }
 
-// assesses validity of a single move
-pred ValidMove[b: Board, row, col, move: Int] {
-    // valid range
-    row >= 0 and row <= 8 
-    col >= 0 and col <= 8
-    move >= 1 and move <= 9 
-
-    no b.values[row][col] // cell must be empty
-    no col2: Int | col2 != col and some b.values[row][col2] and b.values[row][col2] = move // move is not alr in same row
-    no row2: Int | row2 != row and some b.values[row2][col] and b.values[row2][col] = move // move is not alr in same col
-
-    no row2, col2: Int | {
-        (divide[row2, 3] = divide[row, 3]) and (divide[col2, 3] = divide[col, 3]) // same chunk
-        and some b.values[row2][col2] and b.values[row2][col2] = move // duplicate value on move
-    }
-
-}
 
 // assesses the validity of the overall game board
 pred SudokuRules{
