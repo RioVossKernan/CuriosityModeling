@@ -6,6 +6,7 @@ one sig Board {
     values: pfunc Int -> Int -> Int // (row, col) -> value
 }
 
+//set of valid row and col numbers: allows for optimized searching
 fun zeroToEight: Set {
     0 + 1 + 2 + 3 + 3 + 4 + 5 + 6 + 7 + 8
 }
@@ -25,15 +26,15 @@ pred FullBoard {
     }
 }
 
-
 // assesses the validity of the overall game board
 pred SudokuRules{
     all row, col : zeroToEight | some Board.values[row][col] implies { 
         no col2 : zeroToEight | (Board.values[row][col] = Board.values[row][col2]) and (col2 != col) // Row Rule
         no row2 : zeroToEight | (Board.values[row][col] = Board.values[row2][col]) and (row2 != row) // Col Rule
+
         no row2, col2 : zeroToEight | { //Chunk Rule
             Board.values[row][col] = Board.values[row2][col2] //same number
-            (col2 != col) and (row2 != row) //its a different pos
+            (col2 != col) and (row2 != row) //different pos
             (divide[row2,3] = divide[row,3]) and (divide[col2,3] = divide[col,3]) //same chunk
         }
     }

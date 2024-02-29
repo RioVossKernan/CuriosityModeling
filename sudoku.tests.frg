@@ -120,17 +120,17 @@ test suite for FullBoard {
 ---SudokuRules -----------------------------------------------------------------
 pred rowRule{
     all row, col : Int | some Board.values[row][col] implies { 
-        no col2 : Int | (Board.values[row][col] = Board.values[row][col2]) and (col2 != col) // Row Rule
+        no col2 : Int | (Board.values[row][col] = Board.values[row][col2]) and (col2 != col)
     }
 }
 pred colRule{
     all row, col : Int | some Board.values[row][col] implies { 
-        no row2 : Int | (Board.values[row][col] = Board.values[row2][col]) and (row2 != row) // Col Rule
+        no row2 : Int | (Board.values[row][col] = Board.values[row2][col]) and (row2 != row) 
     }
 }
 pred chunkRule{
     all row, col : Int | some Board.values[row][col] implies { 
-        no row2, col2 : Int | { //Chunk Rule
+        no row2, col2 : Int | {
             Board.values[row][col] = Board.values[row2][col2] //same number
             (col2 != col) and (row2 != row) //its a different pos
             (divide[row2,3] = divide[row,3]) and (divide[col2,3] = divide[col,3]) //same chunk
